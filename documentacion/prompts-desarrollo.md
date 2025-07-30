@@ -91,6 +91,8 @@ Editar
 
 ¿Qué preferís?
 
+Este Prompt fue hecho con la finalidad de ver como era la estructura de las tablas y para tener en cuenta un boceto de como deberian ser las relaciones.
+
 ## Prompt para tener una recordar la composicion y las dependencias a importar en los repositories
 
 Avancemos con la composicion de lo repositories, quiero que me des las dependencias y unos ejemplos para empleados y yo continuare con los que falten.
@@ -135,4 +137,5 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
 }
 
 ¿Querés que ahora avancemos con los Services (interfaces + implementación) para cada entidad?
+
 
