@@ -1,4 +1,4 @@
-##Prompt Base
+## Prompt Base para saber crear bien las dependencias con JPA
 
 Bien, quiero que tengas en cuenta el archivo .md que adjunte para que tengas en cuenta las consignas de este trabajo practico. A partir de ellas vamos a resolver lo que te vaya pidiendo y las dudas que surgen seran consultadas. La idea principal es que cada cosa que vayamos haciendo me ayudes a hacer la primer ejemplo para despues poder continuar con las demas por mi cuenta y que la que la hagas bien explicada asi puedo comprender de manera mas eficiente. Comencemos por las primeras clases de la Etapa 1 (Empleado).
 
@@ -90,3 +90,49 @@ Editar
 📘 También puedo proponerte después ejercicios simples para verificar que entendiste bien las relaciones JPA si querés reforzar.
 
 ¿Qué preferís?
+
+## Prompt para tener una recordar la composicion y las dependencias a importar en los repositories
+
+Avancemos con la composicion de lo repositories, quiero que me des las dependencias y unos ejemplos para empleados y yo continuare con los que falten.
+
+Vamos a trabajar paso a paso. El primer subpaso es:
+
+🔹 Paso 1: Crear los Repositories
+Perfecto Ian, vamos a generar las interfaces en com.SistemaDeGestion.TP5.repositorio:
+
+📁 EmpleadoRepository.java
+java
+Copiar
+Editar
+package com.SistemaDeGestion.TP5.repositorio;
+
+import com.SistemaDeGestion.TP5.modelo.Empleado;
+import com.SistemaDeGestion.TP5.modelo.Departamento;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
+
+    Optional<Empleado> findByEmail(String email);
+
+    List<Empleado> findByDepartamento(Departamento departamento);
+
+    List<Empleado> findBySalarioBetween(BigDecimal salarioMin, BigDecimal salarioMax);
+
+    List<Empleado> findByFechaContratacionAfter(LocalDate fecha);
+
+    @Query("SELECT e FROM Empleado e WHERE e.departamento.nombre = :nombreDepartamento")
+    List<Empleado> findByNombreDepartamento(@Param("nombreDepartamento") String nombreDepartamento);
+
+    @Query("SELECT AVG(e.salario) FROM Empleado e WHERE e.departamento.id = :departamentoId")
+    Optional<BigDecimal> findAverageSalarioByDepartamento(@Param("departamentoId") Long departamentoId);
+}
+
+¿Querés que ahora avancemos con los Services (interfaces + implementación) para cada entidad?
+
