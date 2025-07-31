@@ -257,3 +257,77 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 ¿Querés que ahora te pase los services de Departamento y Proyecto, o preferís avanzar con el Controller de Empleado para ir viendo cómo se conectan las capas?
 
 Este prompt más que nada se utilizó para tener en cuenta como era la estructura de las implementaciones.
+
+
+## Prompt para hacer un ejemplo del controller de empleado
+
+Avancemos con el primer ejemplo de Controllers Rest, sigamos con la dinamica con la que venimos trabajando.
+
+¡MUY BIEN, Ian! Veamos como avanzar con los Controladores...
+
+✅ Estructura sugerida
+Crearemos los siguientes controladores en el paquete:
+com.SistemaDeGestion.TP5.controlador
+
+🟦 EmpleadoController
+java
+package com.SistemaDeGestion.TP5.controlador;
+
+import com.SistemaDeGestion.TP5.modelo.Empleado;
+import com.SistemaDeGestion.TP5.servicio.Interface.EmpleadoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/empleados")
+public class EmpleadoController {
+
+    private final EmpleadoService empleadoService;
+
+    public EmpleadoController(EmpleadoService empleadoService) {
+        this.empleadoService = empleadoService;
+    }
+
+    @GetMapping
+    public List<Empleado> obtenerTodos() {
+        return empleadoService.obtenerTodos();
+    }
+
+    @GetMapping("/{id}")
+    public Empleado obtenerPorId(@PathVariable Long id) {
+        return empleadoService.buscarPorId(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Empleado crear(@RequestBody Empleado empleado) {
+        return empleadoService.guardar(empleado);
+    }
+
+    @PutMapping("/{id}")
+    public Empleado actualizar(@PathVariable Long id, @RequestBody Empleado empleado) {
+        return empleadoService.actualizar(id, empleado);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void eliminar(@PathVariable Long id) {
+        empleadoService.eliminar(id);
+    }
+
+    @GetMapping("/departamento/{nombre}")
+    public List<Empleado> buscarPorDepartamento(@PathVariable String nombre) {
+        return empleadoService.buscarPorDepartamento(nombre);
+    }
+
+    @GetMapping("/salario")
+    public List<Empleado> buscarPorRangoSalario(@RequestParam BigDecimal min, @RequestParam BigDecimal max) {
+        return empleadoService.buscarPorRangoSalario(min, max);
+    }
+}
+
+¿Querés que ahora avancemos con la configuración de los application.yml para los distintos profiles (dev, mysql, postgres) o pasamos directamente a los tests (@DataJpaTest, @WebMvcTest, etc.)?
+
