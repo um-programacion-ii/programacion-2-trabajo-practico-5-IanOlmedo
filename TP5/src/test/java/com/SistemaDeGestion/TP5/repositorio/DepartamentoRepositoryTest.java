@@ -25,5 +25,6 @@ class DepartamentoRepositoryTest {
 
         Optional<Departamento> hallado = departamentoRepository.findByNombre("RRHH");
         assertThat(hallado).isPresent();
+        
     }
 }
