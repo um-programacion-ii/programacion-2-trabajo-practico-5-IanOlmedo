@@ -11,6 +11,41 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
 ![H2](https://img.shields.io/badge/H2-2.2-green)
 
+Ejecución local
+# Clonar el repositorio
+git clone git@github.com:um-programacion-ii/programacion-2-trabajo-practico-5-IanOlmedo.git
+cd programacion-2-trabajo-practico-5-IanOlmedo
+
+# Ejecutar con H2 (dev)
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+
+Ejecución con MySQL/Postgres (Docker DBs)
+# Levantar bases de datos
+docker compose up -d
+
+# Ejecutar con MySQL
+./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
+
+# Ejecutar con PostgreSQL
+./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres
+
+# Configuración y despliegue en Docker
+Levantar solo las bases de datos:
+docker compose up -d
+
+Detener y eliminar contenedores:
+docker compose down
+docker compose down -v 
+
+Construir imagen de la app:
+docker build -t empleados-app:latest .
+
+Correr la app en la misma red que las DBs:
+docker run --rm -p 8080:8080 \
+--network empleados_network \
+-e SPRING_PROFILES_ACTIVE=mysql \
+empleados-app:latest
+
 ## ⚠️ Importante: Antes de Comenzar
 
 1. **Lectura Completa**
@@ -882,40 +917,50 @@ class EmpleadoServiceIntegrationTest {
     - Explicación de por qué se usó ese prompt
     - Aprendizajes obtenidos del uso de IA
 
-## 🐳 Instrucciones para Docker
 
-### Levantar Bases de Datos
-```bash
-# Levantar MySQL y PostgreSQL
-docker compose up -d
 
-# Verificar que los contenedores estén corriendo
-docker compose ps
+Ejecución local
+# Clonar el repositorio
+git clone git@github.com:um-programacion-ii/programacion-2-trabajo-practico-5-IanOlmedo.git
+cd programacion-2-trabajo-practico-5-IanOlmedo
 
-# Ver logs de los contenedores
-docker compose logs -f
-```
-
-### Ejecutar Aplicación con Diferentes Profiles
-```bash
-# Con H2 (desarrollo)
+# Ejecutar con H2 (dev)
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 
-# Con MySQL
+Ejecución con MySQL/Postgres (Docker DBs)
+# Levantar bases de datos
+docker compose up -d
+
+# Ejecutar con MySQL
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
 
-# Con PostgreSQL
+# Ejecutar con PostgreSQL
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres
-```
 
-### Detener Bases de Datos
+## 🐳 Instrucciones para Docker
+
+# Configuración y despliegue en Docker
+Levantar solo las bases de datos:
 ```bash
-# Detener contenedores
+ docker compose up -d 
+# Ver logs de los contenedores
+docker compose logs -f
+# Detener y eliminar contenedores:
 docker compose down
-
-# Detener y eliminar volúmenes
-docker compose down -v
+docker compose down -v 
 ```
+
+# Construir imagen de la app:
+```bash 
+docker build -t empleados-app:latest .
+
+# Correr la app en la misma red que las DBs:
+docker run --rm -p 8080:8080 \
+--network empleados_network \
+-e SPRING_PROFILES_ACTIVE=mysql \
+empleados-app:latest
+```
+
 
 ## 📚 Recursos Adicionales
 
