@@ -15,11 +15,8 @@ import java.util.Optional;
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long> {
 
     Optional<Empleado> findByEmail(String email);
-
     List<Empleado> findByDepartamento(Departamento departamento);
-
     List<Empleado> findBySalarioBetween(BigDecimal salarioMin, BigDecimal salarioMax);
-
     List<Empleado> findByFechaContratacionAfter(LocalDate fecha);
 
     @Query("SELECT e FROM Empleado e WHERE e.departamento.nombre = :nombreDepartamento")
